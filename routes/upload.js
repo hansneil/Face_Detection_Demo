@@ -7,9 +7,14 @@ var exec = require('child_process').exec;
 var multiparty = require('multiparty');
 var cmdStr = "bash /home/sjtuicat/hansneil/GFP-DCN/GFP-DCN-Code/code/codes/GFPDCN/mrun.sh upload.mp4 1";
 
+function generatePath(dir) {
+  var baseDir = '/home/sjtuicat/hansneil/GFP-DCN/GFP-DCN-Code/code/codes/GFPDCN/';
+  return baseDir + dir;
+}
+
 function checkFinish(callback) {
-    if (fs.existsSync('/home/sjtuicat/hansneil/GFP-DCN/GFP-DCN-Code/code/codes/GFPDCN/finish.txt')) {
-        data = fs.readFileSync('/home/sjtuicat/hansneil/GFP-DCN/GFP-DCN-Code/code/codes/GFPDCN/finish.txt', 'utf-8');
+    if (fs.existsSync(generatePath('finish.txt'))) {
+        data = fs.readFileSync(generatePath('finish.txt'), 'utf-8');
         if (data == 'Finish') {
             console.log('Finished');
             callback();
@@ -36,7 +41,15 @@ exports.upload = function(req, res) {
         fs.renameSync(uploads[0].path, form.uploadDir + uploads[0].originalFilename);
         exec(cmdStr);
         checkFinish(function () {
-          res.send(200, {result: 100});
+          var plotData = fs.readFileSync(generatePath('plot_data.txt'), 'utf-8');
+          var sliceData = fs.readFileSync(generatePath('data_slice.txt'), 'utf-8');
+          res.status(200).send({
+            success: true,
+            data: {
+              total: plotData,
+              slice: sliceData
+            }
+          });
         });
     });
 };
