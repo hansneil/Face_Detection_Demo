@@ -9,10 +9,10 @@ var multiparty = require('multiparty');
 exports.upload = function(req, res) {
     var form = new multiparty.Form();
     form.encoding = 'utf-8';
-    form.uploadDir = "uploads/videos";
+    form.uploadDir = "uploads/videos/";
     form.parse(req, function(err, fields, files){
-        console.log(files);
-        fs.renameSync(files.path, files.originalFilename);
+        var uploads = files.uploads;
+        fs.renameSync(uploads[0].path, form.uploadDir + uploads[0].originalFilename);
     });
 
     res.send(200, {result: 100});
