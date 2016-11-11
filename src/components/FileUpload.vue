@@ -1,6 +1,7 @@
 <template>
   <div>
-    <vue-file-upload url='/upload' v-bind:files.sync='files' v-bind:events='cbEvents'></vue-file-upload>
+    <vue-file-upload url='/upload' v-bind:files.sync='files'
+                     v-bind:events='cbEvents' v-bind:request-options='options'></vue-file-upload>
     <button type='button' @click='uploadItem'>上传</button>
   </div>
 </template>
@@ -14,6 +15,15 @@
         cbEvents: {
           onCompleteUpload: (file, response, status, header) => {
             console.log(response);
+          }
+        }
+      }
+    },
+    computed: {
+      options() {
+        return {
+          formData: {
+            angle: 0
           }
         }
       }
