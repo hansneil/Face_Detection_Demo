@@ -39,15 +39,17 @@ exports.upload = function(req, res) {
         fs.renameSync(uploads[0].path, form.uploadDir + uploads[0].originalFilename);
         exec(cmdStr);
         checkFinish(function () {
-          var plotData = fs.readFileSync(generatePath('plot_data.txt'), 'utf-8');
-          var sliceData = fs.readFileSync(generatePath('data_slice.txt'), 'utf-8');
-          res.status(200).send({
-            success: true,
-            data: {
-              total: plotData,
-              slice: sliceData
-            }
-          });
+            var plotData = fs.readFileSync(generatePath('plot_data.txt'), 'utf-8');
+            var sliceData = fs.readFileSync(generatePath('data_slice.txt'), 'utf-8');
+            var cmdClear = 'rm ' + generatePath('finish.txt');
+            exec(cmdClear);
+            res.status(200).send({
+                success: true,
+                data: {
+                  total: plotData,
+                  slice: sliceData
+                }
+            });
         });
     });
 };
