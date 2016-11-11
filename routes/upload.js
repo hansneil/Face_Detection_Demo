@@ -38,14 +38,7 @@ exports.upload = function(req, res) {
         console.log(files);
         cmdStr += ' ' + uploads[0].originalFilename + ' 0';
         fs.renameSync(uploads[0].path, form.uploadDir + uploads[0].originalFilename);
-        res.status(200).send({
-            success: true,
-            data: {
-                total: '222',
-                slice: '3333'
-            }
-        });
-        /*exec(cmdStr);
+        exec(cmdStr);
         checkFinish(function () {
             var plotData = fs.readFileSync(generatePath('plot_data.txt'), 'utf-8');
             var sliceData = fs.readFileSync(generatePath('data_slice.txt'), 'utf-8');
@@ -58,6 +51,6 @@ exports.upload = function(req, res) {
                   slice: sliceData
                 }
             });
-        });*/
+        });
     });
 };
