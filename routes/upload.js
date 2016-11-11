@@ -16,17 +16,14 @@ function checkFinish(callback) {
     if (fs.existsSync(generatePath('finish.txt'))) {
         data = fs.readFileSync(generatePath('finish.txt'), 'utf-8');
         if (data == 'Finish') {
-            console.log('Finished');
             callback();
         } else {
             setTimeout(function(){
-                console.log("Not Yet");
                 checkFinish(callback);
               }, 1000);
         }
     } else {
         setTimeout(function(){
-            console.log("Not Yet");
             checkFinish(callback);
         }, 1000);
     }
@@ -37,7 +34,7 @@ exports.upload = function(req, res) {
     form.encoding = 'utf-8';
     form.uploadDir = "uploads/videos/";
     form.parse(req, function(err, fields, files){
-        var uploads = files.uploads;
+        var uploads = files.file;
         fs.renameSync(uploads[0].path, form.uploadDir + uploads[0].originalFilename);
         exec(cmdStr);
         checkFinish(function () {
