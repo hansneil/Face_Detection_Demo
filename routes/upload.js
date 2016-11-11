@@ -34,10 +34,18 @@ exports.upload = function(req, res) {
     form.encoding = 'utf-8';
     form.uploadDir = "uploads/videos/";
     form.parse(req, function(err, fields, files){
-        var uploads = files.file;
+        var uploads = files.video;
+        console.log(files);
         cmdStr += ' ' + uploads[0].originalFilename + ' 0';
         fs.renameSync(uploads[0].path, form.uploadDir + uploads[0].originalFilename);
-        exec(cmdStr);
+        res.status(200).send({
+            success: true,
+            data: {
+                total: '222',
+                slice: '3333'
+            }
+        });
+        /*exec(cmdStr);
         checkFinish(function () {
             var plotData = fs.readFileSync(generatePath('plot_data.txt'), 'utf-8');
             var sliceData = fs.readFileSync(generatePath('data_slice.txt'), 'utf-8');
@@ -50,6 +58,6 @@ exports.upload = function(req, res) {
                   slice: sliceData
                 }
             });
-        });
+        });*/
     });
 };

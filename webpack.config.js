@@ -34,17 +34,23 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract("style-loader", 'css-loader')
+        loader: ExtractTextPlugin.extract("style-loader", 'css-loader', 'sass-loader')
       },
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader'
       }
     ]
   },
   vue: {
-    css: ExtractTextPlugin.extract("css"),
-    sass: ExtractTextPlugin.extract("css!sass-loader")
+    loaders: {
+      css: ExtractTextPlugin.extract("css"),
+      scss: ExtractTextPlugin.extract("css!sass-loader")
+    }
   },
   plugins: plugins
 }
