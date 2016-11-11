@@ -115,7 +115,7 @@
         cbEvents: {
           onCompleteUpload: (file, response, status, header) => {
             console.log(response);
-            this.$emit('return');
+            this.$emit('return', response.data);
           }
         },
         options: {

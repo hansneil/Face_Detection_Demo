@@ -102,5 +102,17 @@ html, body {
   background-size: cover;
 }
 .shrink {
+  display: inline-block;
+  width: 100%;
+}
+.chart {
+  position: absolute;
+  top: 0;
+  right: -100%;
   width: 50%;
+  height: 100%;
+}
+.expand {
+  right: 0;
+  opacity: 0.9;
 }

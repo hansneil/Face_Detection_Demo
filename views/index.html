@@ -10,6 +10,7 @@
         <banner></banner>
         <file-upload v-on:return="handleRetData"></file-upload>
     </div>
+    <div id="chart-wrapper" class="chart" :class="{expand: isShrink}">{{detectRes}}</div>
     <!--<image-upload></image-upload>-->
     <script src='common.js'></script>
     <script src='build.js'></script>
