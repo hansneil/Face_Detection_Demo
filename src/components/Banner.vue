@@ -5,16 +5,20 @@
     </div>
 </template>
 <style lang="scss">
+    .bg-img {
+        width: 50%;
+    }
     .title {
-        width: 600px;
         color: #fff;
         font-size: 60px;
         font-weight: 900;
         font-family: "PingFang HK";
+        text-align: center;
     }
     .desc {
         color: #fff;
         margin-bottom: 20px;
+        text-align: center;
     }
 </style>
 <script>

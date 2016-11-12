@@ -8,9 +8,17 @@
 <body id="body">
     <div class="interface-wrapper" :class="{shrink: isShrink}">
         <banner></banner>
-        <file-upload v-on:return="handleRetData"></file-upload>
+        <file-upload v-on:return="handleRetData" v-on:start="loadingData" v-on:update="updateTime"></file-upload>
     </div>
-    <div id="chart-wrapper" class="chart" :class="{expand: isShrink}">{{detectRes}}</div>
+    <div id="chart-wrapper" class="chart" :class="{expand: isShrink}">
+    </div>
+    <span class="close-btn" @click="reset" :class="{close: isShrink}">
+        &times;
+    </span>
+    <div class="upload-mask" v-if="loading">
+        <span class="loading-tag" v-if="!isShrink"></span>
+        <span class="loading-text" v-html="timing" v-if="!isShrink"></span>
+    </div>
     <!--<image-upload></image-upload>-->
     <script src='common.js'></script>
     <script src='build.js'></script>

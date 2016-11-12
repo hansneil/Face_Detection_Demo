@@ -10,11 +10,28 @@ var vm = new Vue({
   data: {
     number: 1024,
     isShrink: 0,
-    detectRes: ''
+    detectRes: '',
+    loading: 0,
+    close: 0,
+    timing: 0
   },
   methods: {
+    updateTime: function() {
+      var tempTime = this.timing - 0 + 0.1;
+      this.timing = tempTime.toFixed(2);
+    },
+    loadingData: function () {
+      this.loading = 1;
+    },
+    reset: function () {
+      this.loading = 0;
+      this.isShrink = 0;
+      this.close = 0;
+      this.timing = 0;
+    },
     handleRetData: function(data) {
       this.isShrink = 1;
+      this.close = 1;
       var myChart = echarts.init(document.getElementById('chart-wrapper'));
       var data_total = data.total.split('\n').slice(0, -1).reduce((prev, val) => {
         prev.push((val.split(' '))[1] - 0);

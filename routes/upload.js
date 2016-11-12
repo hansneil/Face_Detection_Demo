@@ -35,15 +35,19 @@ exports.upload = function(req, res) {
     form.uploadDir = "uploads/videos/";
     form.parse(req, function(err, fields, files){
         if (fields.angle == -1) {
+            var uploads = files.video;
+            fs.renameSync(uploads[0].path, form.uploadDir + uploads[0].originalFilename);
             var plotData = fs.readFileSync('uploads/plot_data.txt', 'utf-8');
             var sliceData = fs.readFileSync('uploads/data_slice.txt', 'utf-8');
-            res.status(200).send({
-                success: true,
-                data: {
-                    total: plotData,
-                    slice: sliceData
-                }
-            });
+            setTimeout(() => {
+                res.status(200).send({
+                    success: true,
+                    data: {
+                        total: plotData,
+                        slice: sliceData
+                    }
+                });
+            }, 10000);
         } else {
             var uploads = files.video;
             cmdStr += ' ' + uploads[0].originalFilename + ' 0';

@@ -29,7 +29,8 @@
 
 <style lang="scss">
   .wrapper {
-    width: 450px;
+    width: 50%;
+    padding: 0 5%;
     text-align: center;
   }
   #wra.wrapper .fileupload-button {
@@ -115,6 +116,7 @@
         cbEvents: {
           onCompleteUpload: (file, response, status, header) => {
             console.log(response);
+            this.files = [];
             this.$emit('return', response.data);
           }
         },
@@ -142,13 +144,15 @@
     methods: {
       uploadItem() {
         this.files[0].upload();
+        this.$emit('start');
         const interval = setInterval(() => {
           const status = this.onStatus(this.files[0]);
-          if (status == "上传成功") {
+          if (status == "正在上传") {
+            this.$emit('update');
+          } else if (status == "上传成功") {
             clearInterval(interval);
           }
-          console.log(status);
-        }, 1000)
+        }, 100);
       },
       onStatus(file){
         if(file.isSuccess){
