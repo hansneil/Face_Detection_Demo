@@ -116,8 +116,8 @@
         cbEvents: {
           onCompleteUpload: (file, response, status, header) => {
             console.log(response);
-            this.files = [];
             this.$emit('return', response.data);
+            this.options.formData.angle = -1;
           }
         },
         options: {
@@ -145,12 +145,13 @@
       uploadItem() {
         this.files[0].upload();
         this.$emit('start');
-        const interval = setInterval(() => {
+        var interval = setInterval(() => {
           const status = this.onStatus(this.files[0]);
           if (status == "正在上传") {
             this.$emit('update');
           } else if (status == "上传成功") {
             clearInterval(interval);
+            this.files = [];
           }
         }, 100);
       },

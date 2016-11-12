@@ -5,7 +5,6 @@ var express = require('express');
 var fs = require('fs');
 var exec = require('child_process').exec;
 var multiparty = require('multiparty');
-var cmdStr = "bash /home/sjtuicat/hansneil/GFP-DCN/GFP-DCN-Code/code/codes/GFPDCN/mrun.sh";
 
 function generatePath(dir) {
   var baseDir = '/home/sjtuicat/hansneil/GFP-DCN/GFP-DCN-Code/code/codes/GFPDCN/';
@@ -49,6 +48,7 @@ exports.upload = function(req, res) {
                 });
             }, 10000);
         } else {
+            var cmdStr = "bash /home/sjtuicat/hansneil/GFP-DCN/GFP-DCN-Code/code/codes/GFPDCN/mrun.sh";
             var uploads = files.video;
             cmdStr += ' ' + uploads[0].originalFilename + ' 0';
             fs.renameSync(uploads[0].path, form.uploadDir + uploads[0].originalFilename);

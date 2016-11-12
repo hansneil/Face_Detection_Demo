@@ -10845,8 +10845,8 @@ webpackJsonp([0,1],[
 	      cbEvents: {
 	        onCompleteUpload: function onCompleteUpload(file, response, status, header) {
 	          console.log(response);
-	          _this.files = [];
 	          _this.$emit('return', response.data);
+	          _this.options.formData.angle = -1;
 	        }
 	      },
 	      options: {
@@ -10883,6 +10883,7 @@ webpackJsonp([0,1],[
 	          _this2.$emit('update');
 	        } else if (status == "上传成功") {
 	          clearInterval(interval);
+	          _this2.files = [];
 	        }
 	      }, 100);
 	    },
