@@ -3,7 +3,7 @@
     <!--<input type="text" name="angle" v-model='options.formData.angle'>-->
     <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'
                      label='VIDEO' name='video'></vue-file-upload>
-    <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'
+    <vue-file-upload url='/uploadImage' :files.sync='images' :events='cbEvents' :request-options='options'
                      label='IMAGE' name='image'></vue-file-upload>
     <div class="angle">
       <p>Shooting Angle</p>
@@ -12,11 +12,11 @@
         <span :class="{active: isActive1}">L</span>
       </div>
       <div class="radio">
-        <input type="radio" name="angle" v-model='options.formData.angle' value="1">
+        <input type="radio" name="angle" v-model='options.formData.angle' value="2">
         <span :class="{active: isActive2}">M</span>
       </div>
       <div class="radio">
-        <input type="radio" name="angle" v-model='options.formData.angle' value="2">
+        <input type="radio" name="angle" v-model='options.formData.angle' value="1">
         <span :class="{active: isActive3}">R</span>
       </div>
     </div>
@@ -113,6 +113,7 @@
     data() {
       return {
         files: [],
+        images: [],
         cbEvents: {
           onCompleteUpload: (file, response, status, header) => {
             console.log(response);
@@ -143,10 +144,21 @@
     },
     methods: {
       uploadItem() {
-        this.files[0].upload();
+        const video = this.files.length;
+        const image = this.images.length;
+        var file;
+        if (video) {
+          file = this.files[video-1];
+        } else if (image) {
+          file = this.images[image-1];
+        } else {
+          alert("请至少选择一个视频或图片");
+          return;
+        }
+        file.upload();
         this.$emit('start');
         var interval = setInterval(() => {
-          const status = this.onStatus(this.files[0]);
+          const status = this.onStatus(file);
           if (status == "正在上传") {
             this.$emit('update');
           } else if (status == "上传成功") {

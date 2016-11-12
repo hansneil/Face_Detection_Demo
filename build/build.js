@@ -10842,6 +10842,7 @@ webpackJsonp([0,1],[
 
 	    return {
 	      files: [],
+	      images: [],
 	      cbEvents: {
 	        onCompleteUpload: function onCompleteUpload(file, response, status, header) {
 	          console.log(response);
@@ -10875,10 +10876,21 @@ webpackJsonp([0,1],[
 	    uploadItem: function uploadItem() {
 	      var _this2 = this;
 
-	      this.files[0].upload();
+	      var video = this.files.length;
+	      var image = this.images.length;
+	      var file;
+	      if (video) {
+	        file = this.files[video - 1];
+	      } else if (image) {
+	        file = this.images[image - 1];
+	      } else {
+	        alert("请至少选择一个视频或图片");
+	        return;
+	      }
+	      file.upload();
 	      this.$emit('start');
 	      var interval = setInterval(function () {
-	        var status = _this2.onStatus(_this2.files[0]);
+	        var status = _this2.onStatus(file);
 	        if (status == "正在上传") {
 	          _this2.$emit('update');
 	        } else if (status == "上传成功") {
@@ -10911,7 +10923,7 @@ webpackJsonp([0,1],[
 	//     <!--<input type="text" name="angle" v-model='options.formData.angle'>-->
 	//     <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'
 	//                      label='VIDEO' name='video'></vue-file-upload>
-	//     <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'
+	//     <vue-file-upload url='/uploadImage' :files.sync='images' :events='cbEvents' :request-options='options'
 	//                      label='IMAGE' name='image'></vue-file-upload>
 	//     <div class="angle">
 	//       <p>Shooting Angle</p>
@@ -10920,11 +10932,11 @@ webpackJsonp([0,1],[
 	//         <span :class="{active: isActive1}">L</span>
 	//       </div>
 	//       <div class="radio">
-	//         <input type="radio" name="angle" v-model='options.formData.angle' value="1">
+	//         <input type="radio" name="angle" v-model='options.formData.angle' value="2">
 	//         <span :class="{active: isActive2}">M</span>
 	//       </div>
 	//       <div class="radio">
-	//         <input type="radio" name="angle" v-model='options.formData.angle' value="2">
+	//         <input type="radio" name="angle" v-model='options.formData.angle' value="1">
 	//         <span :class="{active: isActive3}">R</span>
 	//       </div>
 	//     </div>
@@ -11027,7 +11039,7 @@ webpackJsonp([0,1],[
 /* 78 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"wrapper\" id=\"wra\">\n    <!--<input type=\"text\" name=\"angle\" v-model='options.formData.angle'>-->\n    <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'\n                     label='VIDEO' name='video'></vue-file-upload>\n    <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'\n                     label='IMAGE' name='image'></vue-file-upload>\n    <div class=\"angle\">\n      <p>Shooting Angle</p>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"0\">\n        <span :class=\"{active: isActive1}\">L</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"1\">\n        <span :class=\"{active: isActive2}\">M</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"2\">\n        <span :class=\"{active: isActive3}\">R</span>\n      </div>\n    </div>\n    <div class=\"angle\">\n      <p>Upload</p>\n      <button class=\"submit\" type='button' @click='uploadItem'>UPLOAD</button>\n    </div>\n  </div>";
+	module.exports = "<div class=\"wrapper\" id=\"wra\">\n    <!--<input type=\"text\" name=\"angle\" v-model='options.formData.angle'>-->\n    <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'\n                     label='VIDEO' name='video'></vue-file-upload>\n    <vue-file-upload url='/uploadImage' :files.sync='images' :events='cbEvents' :request-options='options'\n                     label='IMAGE' name='image'></vue-file-upload>\n    <div class=\"angle\">\n      <p>Shooting Angle</p>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"0\">\n        <span :class=\"{active: isActive1}\">L</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"2\">\n        <span :class=\"{active: isActive2}\">M</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"1\">\n        <span :class=\"{active: isActive3}\">R</span>\n      </div>\n    </div>\n    <div class=\"angle\">\n      <p>Upload</p>\n      <button class=\"submit\" type='button' @click='uploadItem'>UPLOAD</button>\n    </div>\n  </div>";
 
 /***/ },
 /* 79 */
