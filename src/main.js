@@ -31,13 +31,14 @@ var vm = new Vue({
       this.close = 0;
       this.timing = 0;
       this.ready = 0;
-      location.reload();
     },
     handleImage: function (name) {
       this.imgName = name;
       this.close = 1;
-      this.ready = 1;
       this.isShrink = 1;
+      setTimeout(() => {
+        this.ready = 1;
+      }, 0);
     },
     handleRetData: function(data) {
       this.isShrink = 1;

@@ -86,7 +86,8 @@ exports.uploadImage = function(req, res) {
                     success: true,
                     data: {
                         total: plotData,
-                        slice: sliceData
+                        slice: sliceData,
+                        name: uploads[0].originalFilename
                     }
                 });
             }, 3000);

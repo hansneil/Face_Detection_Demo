@@ -64,13 +64,16 @@ webpackJsonp([0,1],[
 	      this.close = 0;
 	      this.timing = 0;
 	      this.ready = 0;
-	      location.reload();
 	    },
 	    handleImage: function handleImage(name) {
+	      var _this = this;
+
 	      this.imgName = name;
 	      this.close = 1;
-	      this.ready = 1;
 	      this.isShrink = 1;
+	      setTimeout(function () {
+	        _this.ready = 1;
+	      }, 0);
 	    },
 	    handleRetData: function handleRetData(data) {
 	      this.isShrink = 1;
