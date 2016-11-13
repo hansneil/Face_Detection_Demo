@@ -11216,7 +11216,6 @@ webpackJsonp([0,1],[
 	//         color: #fff;
 	//         font-size: 60px;
 	//         font-weight: 900;
-	//         font-family: "PingFang HK";
 	//         text-align: center;
 	//     }
 	//     .desc {
