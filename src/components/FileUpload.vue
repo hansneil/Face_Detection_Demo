@@ -8,7 +8,7 @@
     <div class="angle">
       <p>Shooting Angle</p>
       <div class="radio">
-        <input type="radio" name="angle" v-model='options.formData.angle' value="0">
+        <input type="radio" name="angle" v-model='options.formData.angle' value="1">
         <span :class="{active: isActive1}">L</span>
       </div>
       <div class="radio">
@@ -16,7 +16,7 @@
         <span :class="{active: isActive2}">M</span>
       </div>
       <div class="radio">
-        <input type="radio" name="angle" v-model='options.formData.angle' value="1">
+        <input type="radio" name="angle" v-model='options.formData.angle' value="0">
         <span :class="{active: isActive3}">R</span>
       </div>
     </div>
@@ -157,13 +157,13 @@
         return this.files.length != 0;
       },
       isActive1() {
-        return this.options.formData.angle == 0;
+        return this.options.formData.angle == 1;
       },
       isActive2() {
         return this.options.formData.angle == 2;
       },
       isActive3() {
-        return this.options.formData.angle == 1;
+        return this.options.formData.angle == 0;
       }
     },
     methods: {

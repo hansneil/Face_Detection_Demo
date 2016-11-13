@@ -10908,13 +10908,13 @@ webpackJsonp([0,1],[
 	      return this.files.length != 0;
 	    },
 	    isActive1: function isActive1() {
-	      return this.options.formData.angle == 0;
+	      return this.options.formData.angle == 1;
 	    },
 	    isActive2: function isActive2() {
 	      return this.options.formData.angle == 2;
 	    },
 	    isActive3: function isActive3() {
-	      return this.options.formData.angle == 1;
+	      return this.options.formData.angle == 0;
 	    }
 	  },
 	  methods: {
@@ -10982,7 +10982,7 @@ webpackJsonp([0,1],[
 	//     <div class="angle">
 	//       <p>Shooting Angle</p>
 	//       <div class="radio">
-	//         <input type="radio" name="angle" v-model='options.formData.angle' value="0">
+	//         <input type="radio" name="angle" v-model='options.formData.angle' value="1">
 	//         <span :class="{active: isActive1}">L</span>
 	//       </div>
 	//       <div class="radio">
@@ -10990,7 +10990,7 @@ webpackJsonp([0,1],[
 	//         <span :class="{active: isActive2}">M</span>
 	//       </div>
 	//       <div class="radio">
-	//         <input type="radio" name="angle" v-model='options.formData.angle' value="1">
+	//         <input type="radio" name="angle" v-model='options.formData.angle' value="0">
 	//         <span :class="{active: isActive3}">R</span>
 	//       </div>
 	//     </div>
@@ -11094,7 +11094,7 @@ webpackJsonp([0,1],[
 /* 78 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"wrapper\" id=\"wra\">\n    <!--<input type=\"text\" name=\"angle\" v-model='options.formData.angle'>-->\n    <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'\n                     label='VIDEO' name='video'></vue-file-upload>\n    <vue-file-upload url='/uploadImage' :files.sync='images' :events='imgEvents' :request-options='options'\n                     label='IMAGE' name='image'></vue-file-upload>\n    <div class=\"angle\">\n      <p>Shooting Angle</p>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"0\">\n        <span :class=\"{active: isActive1}\">L</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"2\">\n        <span :class=\"{active: isActive2}\">M</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"1\">\n        <span :class=\"{active: isActive3}\">R</span>\n      </div>\n    </div>\n    <div class=\"angle\">\n      <p>Upload</p>\n      <button class=\"submit\" type='button' @click='uploadItem'>UPLOAD</button>\n      <button class=\"submit\" type='button' @click='detectItem' v-if='ready'>DETECT</button>\n    </div>\n  </div>";
+	module.exports = "<div class=\"wrapper\" id=\"wra\">\n    <!--<input type=\"text\" name=\"angle\" v-model='options.formData.angle'>-->\n    <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'\n                     label='VIDEO' name='video'></vue-file-upload>\n    <vue-file-upload url='/uploadImage' :files.sync='images' :events='imgEvents' :request-options='options'\n                     label='IMAGE' name='image'></vue-file-upload>\n    <div class=\"angle\">\n      <p>Shooting Angle</p>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"1\">\n        <span :class=\"{active: isActive1}\">L</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"2\">\n        <span :class=\"{active: isActive2}\">M</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"0\">\n        <span :class=\"{active: isActive3}\">R</span>\n      </div>\n    </div>\n    <div class=\"angle\">\n      <p>Upload</p>\n      <button class=\"submit\" type='button' @click='uploadItem'>UPLOAD</button>\n      <button class=\"submit\" type='button' @click='detectItem' v-if='ready'>DETECT</button>\n    </div>\n  </div>";
 
 /***/ },
 /* 79 */
