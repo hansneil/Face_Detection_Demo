@@ -201,3 +201,20 @@ html, body {
   font-size: 24px;
   color: #fff;
 }
+.res-img {
+  width: 60%;
+  position: absolute;
+  top:0;
+  right: 0;
+  bottom: 0;
+  left: -160%;
+  margin: auto;
+  z-index: 99999;
+}
+.img-close {
+  right: -80%;
+  opacity: 0.7;
+}
+.show {
+  left: 0%;
+}

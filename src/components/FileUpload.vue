@@ -3,7 +3,7 @@
     <!--<input type="text" name="angle" v-model='options.formData.angle'>-->
     <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'
                      label='VIDEO' name='video'></vue-file-upload>
-    <vue-file-upload url='/uploadImage' :files.sync='images' :events='cbEvents' :request-options='options'
+    <vue-file-upload url='/uploadImage' :files.sync='images' :events='imgEvents' :request-options='options'
                      label='IMAGE' name='image'></vue-file-upload>
     <div class="angle">
       <p>Shooting Angle</p>
@@ -118,6 +118,13 @@
           onCompleteUpload: (file, response, status, header) => {
             console.log(response);
             this.$emit('return', response.data);
+            this.options.formData.angle = -1;
+          }
+        },
+        imgEvents: {
+          onCompleteUpload: (file, response, status, header) => {
+            console.log(response);
+            this.$emit('imgreturn', response.data);
             this.options.formData.angle = -1;
           }
         },

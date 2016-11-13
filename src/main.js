@@ -13,7 +13,9 @@ var vm = new Vue({
     detectRes: '',
     loading: 0,
     close: 0,
-    timing: 0
+    timing: 0,
+    ready: 0,
+    imgName: ''
   },
   methods: {
     updateTime: function() {
@@ -28,6 +30,13 @@ var vm = new Vue({
       this.isShrink = 0;
       this.close = 0;
       this.timing = 0;
+      this.ready = 0;
+    },
+    handleImage: function () {
+      this.close = 1;
+      this.ready = 1;
+      this.isShrink = 1;
+      this.imgName = 'back.jpg';
     },
     handleRetData: function(data) {
       this.isShrink = 1;

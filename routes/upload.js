@@ -46,7 +46,7 @@ exports.upload = function(req, res) {
                         slice: sliceData
                     }
                 });
-            }, 10000);
+            }, 3000);
         } else {
             var cmdStr = "bash /home/sjtuicat/hansneil/GFP-DCN/GFP-DCN-Code/code/codes/GFPDCN/mrun.sh";
             var uploads = files.video;
@@ -89,7 +89,7 @@ exports.uploadImage = function(req, res) {
                         slice: sliceData
                     }
                 });
-            }, 10000);
+            }, 3000);
         } else {
             var cmdStr = "bash /home/sjtuicat/hansneil/GFP-DCN/GFP-DCN-Code/code/codes/GFPDCN/imrun.sh";
             var uploads = files.image;

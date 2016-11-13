@@ -46,7 +46,9 @@ webpackJsonp([0,1],[
 	    detectRes: '',
 	    loading: 0,
 	    close: 0,
-	    timing: 0
+	    timing: 0,
+	    ready: 0,
+	    imgName: ''
 	  },
 	  methods: {
 	    updateTime: function updateTime() {
@@ -61,6 +63,13 @@ webpackJsonp([0,1],[
 	      this.isShrink = 0;
 	      this.close = 0;
 	      this.timing = 0;
+	      this.ready = 0;
+	    },
+	    handleImage: function handleImage() {
+	      this.close = 1;
+	      this.ready = 1;
+	      this.isShrink = 1;
+	      this.imgName = 'back.jpg';
 	    },
 	    handleRetData: function handleRetData(data) {
 	      this.isShrink = 1;
@@ -10850,6 +10859,13 @@ webpackJsonp([0,1],[
 	          _this.options.formData.angle = -1;
 	        }
 	      },
+	      imgEvents: {
+	        onCompleteUpload: function onCompleteUpload(file, response, status, header) {
+	          console.log(response);
+	          _this.$emit('imgreturn', response.data);
+	          _this.options.formData.angle = -1;
+	        }
+	      },
 	      options: {
 	        formData: {
 	          angle: -1
@@ -10923,7 +10939,7 @@ webpackJsonp([0,1],[
 	//     <!--<input type="text" name="angle" v-model='options.formData.angle'>-->
 	//     <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'
 	//                      label='VIDEO' name='video'></vue-file-upload>
-	//     <vue-file-upload url='/uploadImage' :files.sync='images' :events='cbEvents' :request-options='options'
+	//     <vue-file-upload url='/uploadImage' :files.sync='images' :events='imgEvents' :request-options='options'
 	//                      label='IMAGE' name='image'></vue-file-upload>
 	//     <div class="angle">
 	//       <p>Shooting Angle</p>
@@ -11039,7 +11055,7 @@ webpackJsonp([0,1],[
 /* 78 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"wrapper\" id=\"wra\">\n    <!--<input type=\"text\" name=\"angle\" v-model='options.formData.angle'>-->\n    <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'\n                     label='VIDEO' name='video'></vue-file-upload>\n    <vue-file-upload url='/uploadImage' :files.sync='images' :events='cbEvents' :request-options='options'\n                     label='IMAGE' name='image'></vue-file-upload>\n    <div class=\"angle\">\n      <p>Shooting Angle</p>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"0\">\n        <span :class=\"{active: isActive1}\">L</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"2\">\n        <span :class=\"{active: isActive2}\">M</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"1\">\n        <span :class=\"{active: isActive3}\">R</span>\n      </div>\n    </div>\n    <div class=\"angle\">\n      <p>Upload</p>\n      <button class=\"submit\" type='button' @click='uploadItem'>UPLOAD</button>\n    </div>\n  </div>";
+	module.exports = "<div class=\"wrapper\" id=\"wra\">\n    <!--<input type=\"text\" name=\"angle\" v-model='options.formData.angle'>-->\n    <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'\n                     label='VIDEO' name='video'></vue-file-upload>\n    <vue-file-upload url='/uploadImage' :files.sync='images' :events='imgEvents' :request-options='options'\n                     label='IMAGE' name='image'></vue-file-upload>\n    <div class=\"angle\">\n      <p>Shooting Angle</p>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"0\">\n        <span :class=\"{active: isActive1}\">L</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"2\">\n        <span :class=\"{active: isActive2}\">M</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"1\">\n        <span :class=\"{active: isActive3}\">R</span>\n      </div>\n    </div>\n    <div class=\"angle\">\n      <p>Upload</p>\n      <button class=\"submit\" type='button' @click='uploadItem'>UPLOAD</button>\n    </div>\n  </div>";
 
 /***/ },
 /* 79 */
