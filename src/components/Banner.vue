@@ -1,7 +1,7 @@
 <template>
     <div class="bg-img">
         <p class="title">Face Detection</p>
-        <p class="desc">Demo for GFP-DCN Face Detector. Created by Xianbo.Yu</p>
+        <p class="desc">Demo for GFP-DCN Face Detector. Created by Suyi</p>
     </div>
 </template>
 <style lang="scss">

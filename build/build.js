@@ -48,12 +48,12 @@ webpackJsonp([0,1],[
 	    close: 0,
 	    timing: 0,
 	    ready: 0,
-	    imgName: ''
+	    imgName: '',
+	    videoName: ''
 	  },
 	  methods: {
-	    updateTime: function updateTime() {
-	      var tempTime = this.timing - 0 + 0.1;
-	      this.timing = tempTime.toFixed(2);
+	    updateTime: function updateTime(progress) {
+	      this.timing = progress;
 	    },
 	    loadingData: function loadingData() {
 	      this.loading = 1;
@@ -65,6 +65,10 @@ webpackJsonp([0,1],[
 	      this.timing = 0;
 	      this.ready = 0;
 	    },
+	    handleRetImage: function handleRetImage(name) {
+	      this.loading = 0;
+	      this.timing = 0;
+	    },
 	    handleImage: function handleImage(name) {
 	      var _this = this;
 
@@ -74,6 +78,11 @@ webpackJsonp([0,1],[
 	      setTimeout(function () {
 	        _this.ready = 1;
 	      }, 0);
+	    },
+	    handleRetVideo: function handleRetVideo(data) {
+	      this.videoName = data;
+	      this.loading = 0;
+	      this.timing = 0;
 	    },
 	    handleRetData: function handleRetData(data) {
 	      this.isShrink = 1;
@@ -10856,18 +10865,34 @@ webpackJsonp([0,1],[
 	    return {
 	      files: [],
 	      images: [],
+	      ready: 0,
+	      current: {},
 	      cbEvents: {
+	        onProgressUpload: function onProgressUpload(file, progress) {
+	          _this.$emit('update', progress + '%');
+	          console.log(progress);
+	        },
 	        onCompleteUpload: function onCompleteUpload(file, response, status, header) {
-	          console.log(response);
-	          _this.$emit('return', response.data);
+	          _this.ready = 1;
+	          _this.$emit('return', response.data.name);
 	          _this.options.formData.angle = -1;
+	          _this.current.name = _this.files[_this.files.length - 1].name;
+	          _this.current.type = 'video';
+	          _this.files = [];
 	        }
 	      },
 	      imgEvents: {
+	        onProgressUpload: function onProgressUpload(file, progress) {
+	          _this.$emit('update', progress + '%');
+	          console.log(progress);
+	        },
 	        onCompleteUpload: function onCompleteUpload(file, response, status, header) {
-	          console.log(response);
+	          _this.ready = 1;
 	          _this.$emit('imgreturn', response.data.name);
 	          _this.options.formData.angle = -1;
+	          _this.current.name = _this.images[_this.images.length - 1].name;
+	          _this.current.type = 'image';
+	          _this.images = [];
 	        }
 	      },
 	      options: {
@@ -10893,9 +10918,27 @@ webpackJsonp([0,1],[
 	    }
 	  },
 	  methods: {
-	    uploadItem: function uploadItem() {
+	    detectItem: function detectItem() {
 	      var _this2 = this;
 
+	      $.get('/detect', this.current, function (res, status) {
+	        clearInterval(interval);
+	        if (res.data.type == 'video') {
+	          _this2.$emit('detectvideo', res.data);
+	          _this2.ready = 0;
+	        } else {
+	          _this2.$emit('detectimage', res.data.name);
+	          _this2.ready = 0;
+	        }
+	      });
+	      this.$emit('start');
+	      var time = 0;
+	      var interval = setInterval(function () {
+	        time += 0.1;
+	        _this2.$emit('update', time.toFixed(2));
+	      }, 100);
+	    },
+	    uploadItem: function uploadItem() {
 	      var video = this.files.length;
 	      var image = this.images.length;
 	      var file;
@@ -10909,15 +10952,6 @@ webpackJsonp([0,1],[
 	      }
 	      file.upload();
 	      this.$emit('start');
-	      var interval = setInterval(function () {
-	        var status = _this2.onStatus(file);
-	        if (status == "正在上传") {
-	          _this2.$emit('update');
-	        } else if (status == "上传成功") {
-	          clearInterval(interval);
-	          _this2.files = [];
-	        }
-	      }, 100);
 	    },
 	    onStatus: function onStatus(file) {
 	      if (file.isSuccess) {
@@ -10963,6 +10997,7 @@ webpackJsonp([0,1],[
 	//     <div class="angle">
 	//       <p>Upload</p>
 	//       <button class="submit" type='button' @click='uploadItem'>UPLOAD</button>
+	//       <button class="submit" type='button' @click='detectItem' v-if='ready'>DETECT</button>
 	//     </div>
 	//   </div>
 	// </template>
@@ -11059,7 +11094,7 @@ webpackJsonp([0,1],[
 /* 78 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"wrapper\" id=\"wra\">\n    <!--<input type=\"text\" name=\"angle\" v-model='options.formData.angle'>-->\n    <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'\n                     label='VIDEO' name='video'></vue-file-upload>\n    <vue-file-upload url='/uploadImage' :files.sync='images' :events='imgEvents' :request-options='options'\n                     label='IMAGE' name='image'></vue-file-upload>\n    <div class=\"angle\">\n      <p>Shooting Angle</p>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"0\">\n        <span :class=\"{active: isActive1}\">L</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"2\">\n        <span :class=\"{active: isActive2}\">M</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"1\">\n        <span :class=\"{active: isActive3}\">R</span>\n      </div>\n    </div>\n    <div class=\"angle\">\n      <p>Upload</p>\n      <button class=\"submit\" type='button' @click='uploadItem'>UPLOAD</button>\n    </div>\n  </div>";
+	module.exports = "<div class=\"wrapper\" id=\"wra\">\n    <!--<input type=\"text\" name=\"angle\" v-model='options.formData.angle'>-->\n    <vue-file-upload url='/upload' :files.sync='files' :events='cbEvents' :request-options='options'\n                     label='VIDEO' name='video'></vue-file-upload>\n    <vue-file-upload url='/uploadImage' :files.sync='images' :events='imgEvents' :request-options='options'\n                     label='IMAGE' name='image'></vue-file-upload>\n    <div class=\"angle\">\n      <p>Shooting Angle</p>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"0\">\n        <span :class=\"{active: isActive1}\">L</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"2\">\n        <span :class=\"{active: isActive2}\">M</span>\n      </div>\n      <div class=\"radio\">\n        <input type=\"radio\" name=\"angle\" v-model='options.formData.angle' value=\"1\">\n        <span :class=\"{active: isActive3}\">R</span>\n      </div>\n    </div>\n    <div class=\"angle\">\n      <p>Upload</p>\n      <button class=\"submit\" type='button' @click='uploadItem'>UPLOAD</button>\n      <button class=\"submit\" type='button' @click='detectItem' v-if='ready'>DETECT</button>\n    </div>\n  </div>";
 
 /***/ },
 /* 79 */
@@ -11205,7 +11240,7 @@ webpackJsonp([0,1],[
 	// <template>
 	//     <div class="bg-img">
 	//         <p class="title">Face Detection</p>
-	//         <p class="desc">Demo for GFP-DCN Face Detector. Created by Xianbo.Yu</p>
+	//         <p class="desc">Demo for GFP-DCN Face Detector. Created by Suyi</p>
 	//     </div>
 	// </template>
 	// <style lang="scss">
@@ -11242,7 +11277,7 @@ webpackJsonp([0,1],[
 /* 86 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"bg-img\">\n        <p class=\"title\">Face Detection</p>\n        <p class=\"desc\">Demo for GFP-DCN Face Detector. Created by Xianbo.Yu</p>\n    </div>";
+	module.exports = "<div class=\"bg-img\">\n        <p class=\"title\">Face Detection</p>\n        <p class=\"desc\">Demo for GFP-DCN Face Detector. Created by Suyi</p>\n    </div>";
 
 /***/ },
 /* 87 */

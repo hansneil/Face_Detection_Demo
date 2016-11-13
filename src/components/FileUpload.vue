@@ -23,6 +23,7 @@
     <div class="angle">
       <p>Upload</p>
       <button class="submit" type='button' @click='uploadItem'>UPLOAD</button>
+      <button class="submit" type='button' @click='detectItem' v-if='ready'>DETECT</button>
     </div>
   </div>
 </template>
@@ -114,18 +115,34 @@
       return {
         files: [],
         images: [],
+        ready: 0,
+        current: {},
         cbEvents: {
+          onProgressUpload: (file, progress) => {
+            this.$emit('update', progress + '%');
+            console.log(progress);
+          },
           onCompleteUpload: (file, response, status, header) => {
-            console.log(response);
-            this.$emit('return', response.data);
+            this.ready = 1;
+            this.$emit('return', response.data.name);
             this.options.formData.angle = -1;
+            this.current.name = this.files[this.files.length-1].name;
+            this.current.type = 'video';
+            this.files = [];
           }
         },
         imgEvents: {
+          onProgressUpload: (file, progress) => {
+            this.$emit('update', progress + '%');
+            console.log(progress);
+          },
           onCompleteUpload: (file, response, status, header) => {
-            console.log(response);
+            this.ready = 1;
             this.$emit('imgreturn', response.data.name);
             this.options.formData.angle = -1;
+            this.current.name = this.images[this.images.length-1].name;
+            this.current.type = 'image';
+            this.images = [];
           }
         },
         options: {
@@ -150,6 +167,24 @@
       }
     },
     methods: {
+      detectItem() {
+        $.get('/detect', this.current, (res, status) => {
+          clearInterval(interval);
+          if (res.data.type == 'video') {
+            this.$emit('detectvideo', res.data);
+            this.ready = 0;
+          } else {
+            this.$emit('detectimage', res.data.name);
+            this.ready = 0;
+          }
+        });
+        this.$emit('start');
+        var time = 0;
+        var interval = setInterval(() => {
+          time += 0.1;
+          this.$emit('update', time.toFixed(2));
+        }, 100);
+      },
       uploadItem() {
         const video = this.files.length;
         const image = this.images.length;
@@ -164,15 +199,6 @@
         }
         file.upload();
         this.$emit('start');
-        var interval = setInterval(() => {
-          const status = this.onStatus(file);
-          if (status == "正在上传") {
-            this.$emit('update');
-          } else if (status == "上传成功") {
-            clearInterval(interval);
-            this.files = [];
-          }
-        }, 100);
       },
       onStatus(file){
         if(file.isSuccess){

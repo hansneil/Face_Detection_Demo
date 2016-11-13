@@ -9,8 +9,9 @@
     <div class="interface-wrapper" :class="{shrink: isShrink}">
         <div class="middle-wrapper">
             <banner></banner>
-            <file-upload v-on:return="handleRetData" v-on:start="loadingData"
-                         v-on:update="updateTime" v-on:imgreturn="handleImage"></file-upload>
+            <file-upload v-on:return="handleRetVideo" v-on:start="loadingData"
+                         v-on:update="updateTime" v-on:imgreturn="handleRetImage"
+                         v-on:detectvideo="handleRetData" v-on:detectimage="handleImage"></file-upload>
         </div>
     </div>
     <div id="chart-wrapper" class="chart" :class="{expand: isShrink && !ready}">
@@ -24,6 +25,7 @@
     </div>
     <img :src="imgName" class="res-img" :class="{show: ready}"/>
     <!--<image-upload></image-upload>-->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
     <script src='common.js'></script>
     <script src='build.js'></script>
 </body>

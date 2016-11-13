@@ -30,6 +30,7 @@ app.use('/', routes);
 //app.get('/upload', upload.upload);
 app.post('/upload',upload.upload);
 app.post('/uploadImage',upload.uploadImage);
+app.get('/detect',upload.detect);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

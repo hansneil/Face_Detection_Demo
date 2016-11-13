@@ -15,12 +15,12 @@ var vm = new Vue({
     close: 0,
     timing: 0,
     ready: 0,
-    imgName: ''
+    imgName: '',
+    videoName: ''
   },
   methods: {
-    updateTime: function() {
-      var tempTime = this.timing - 0 + 0.1;
-      this.timing = tempTime.toFixed(2);
+    updateTime: function(progress) {
+      this.timing = progress;
     },
     loadingData: function () {
       this.loading = 1;
@@ -32,6 +32,10 @@ var vm = new Vue({
       this.timing = 0;
       this.ready = 0;
     },
+    handleRetImage: function (name) {
+      this.loading = 0;
+      this.timing = 0;
+    },
     handleImage: function (name) {
       this.imgName = name;
       this.close = 1;
@@ -39,6 +43,11 @@ var vm = new Vue({
       setTimeout(() => {
         this.ready = 1;
       }, 0);
+    },
+    handleRetVideo: function (data) {
+      this.videoName = data;
+      this.loading = 0;
+      this.timing = 0;
     },
     handleRetData: function(data) {
       this.isShrink = 1;
