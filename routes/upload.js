@@ -92,7 +92,7 @@ exports.detect = function (req, res) {
                 data: {
                     total: plotData,
                     slice: sliceData,
-                    name: uploads[0].originalFilename,
+                    name: req.query.name,
                     type: req.query.type
                 }
             });
