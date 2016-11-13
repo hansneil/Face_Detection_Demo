@@ -10886,10 +10886,10 @@ webpackJsonp([0,1],[
 	      return this.options.formData.angle == 0;
 	    },
 	    isActive2: function isActive2() {
-	      return this.options.formData.angle == 1;
+	      return this.options.formData.angle == 2;
 	    },
 	    isActive3: function isActive3() {
-	      return this.options.formData.angle == 2;
+	      return this.options.formData.angle == 1;
 	    }
 	  },
 	  methods: {
