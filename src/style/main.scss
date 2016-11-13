@@ -3,6 +3,7 @@
   padding: 0;
   margin: 0;
   transition: all 0.5s ease;
+  font-family: "PingFang HK", Microsoft Yahei;
 }
 html, body {
   height: 100%;
@@ -15,6 +16,11 @@ html, body {
   height: 100%;
   background: url('../images/back-3.jpg');
   background-size: cover;
+}
+.middle-wrapper {
+  position: relative;
+  top: 50%;
+  transform: translate(0, -50%);
 }
 .shrink {
   display: inline-block;

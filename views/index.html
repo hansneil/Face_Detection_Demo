@@ -7,11 +7,13 @@
 </head>
 <body id="body">
     <div class="interface-wrapper" :class="{shrink: isShrink}">
-        <banner></banner>
-        <file-upload v-on:return="handleRetData" v-on:start="loadingData"
-                     v-on:update="updateTime" v-on:imgreturn="handleImage"></file-upload>
+        <div class="middle-wrapper">
+            <banner></banner>
+            <file-upload v-on:return="handleRetData" v-on:start="loadingData"
+                         v-on:update="updateTime" v-on:imgreturn="handleImage"></file-upload>
+        </div>
     </div>
-    <div id="chart-wrapper" class="chart" :class="{expand: isShrink}">
+    <div id="chart-wrapper" class="chart" :class="{expand: isShrink && !ready}">
     </div>
     <span class="close-btn" @click="reset" :class="{close: isShrink, 'img-close': ready}">
         &times;
