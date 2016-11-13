@@ -33,11 +33,11 @@ var vm = new Vue({
       this.ready = 0;
       location.reload();
     },
-    handleImage: function () {
+    handleImage: function (name) {
+      this.imgName = name;
       this.close = 1;
       this.ready = 1;
       this.isShrink = 1;
-      this.imgName = 'back.jpg';
     },
     handleRetData: function(data) {
       this.isShrink = 1;

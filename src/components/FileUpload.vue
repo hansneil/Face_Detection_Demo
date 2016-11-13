@@ -124,7 +124,7 @@
         imgEvents: {
           onCompleteUpload: (file, response, status, header) => {
             console.log(response);
-            this.$emit('imgreturn', response.data);
+            this.$emit('imgreturn', response.data.name);
             this.options.formData.angle = -1;
           }
         },

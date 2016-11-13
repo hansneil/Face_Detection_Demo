@@ -20,7 +20,7 @@
         <span class="loading-tag" v-if="!isShrink"></span>
         <span class="loading-text" v-html="timing" v-if="!isShrink"></span>
     </div>
-    <img src="result.jpg" class="res-img" :class="{show: ready}"/>
+    <img :src="imgName" class="res-img" :class="{show: ready}"/>
     <!--<image-upload></image-upload>-->
     <script src='common.js'></script>
     <script src='build.js'></script>
