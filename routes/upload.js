@@ -101,7 +101,7 @@ exports.uploadImage = function(req, res) {
             checkFinish(function () {
                 var plotData = fs.readFileSync(generatePath('plot_data.txt'), 'utf-8');
                 var sliceData = fs.readFileSync(generatePath('data_slice.txt'), 'utf-8');
-                var cmdClear = 'rm ' + generatePath('finish.txt');
+                var cmdClear = 'bash /home/sjtuicat/hansneil/GFP-DCN/GFP-DCN-Code/code/codes/GFPDCN/clean.sh';
                 exec(cmdClear);
                 res.status(200).send({
                     success: true,
