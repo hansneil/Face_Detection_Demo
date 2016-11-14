@@ -93,7 +93,7 @@ var vm = new Vue({
         }
         return prev;
       }, 0);
-      var class_total = max * 6 / 5;
+      var class_total = Math.floor(max * 12 / 7);
       //校正听课率
       var data_slice_sort = data.slice.split('\n').slice(0, -1).map((val) => {
         var listen = (val.split(' '))[1];
@@ -119,7 +119,7 @@ var vm = new Vue({
         return prev;
       });
 
-      var corrected_attendance = (average_slice * max + class_total * 1 / 6 * lowest_slice) / class_total;
+      var corrected_attendance = (average_slice * max + class_total * 5 / 12 * lowest_slice * average_slice) / class_total;
       //this.corrected = (this.corrected * 100).toFixed(2) + '%';
 
       var j = 1;
