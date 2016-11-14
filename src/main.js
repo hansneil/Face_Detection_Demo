@@ -123,7 +123,7 @@ var vm = new Vue({
         return prev;
       });
 
-      var corrected_attendance = (average_slice * max + class_total * 5 / 12 * lowest_slice) / class_total;
+      var corrected_attendance = (average_slice * max + class_total * 5 / 12 * lowest_slice * average_slice) / class_total;
       //this.corrected = (this.corrected * 100).toFixed(2) + '%';
 
       var j = 1;
