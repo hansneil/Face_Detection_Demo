@@ -117,7 +117,7 @@ webpackJsonp([0,1],[
 	          return prev - 0 + listen / total;
 	        }
 	      }, 0);
-	      class_attendance = class_attendance / (data_total.length - 1);
+	      class_attendance = class_attendance / data_total.length;
 	      //this.experiment = (class_attendance * 100).toFixed(2) + '%';
 	      var i = 1;
 	      var expInter = setInterval(function () {
@@ -160,7 +160,7 @@ webpackJsonp([0,1],[
 	        return prev;
 	      });
 
-	      var corrected_attendance = (average_slice * max + class_total * 5 / 12 * lowest_slice * average_slice) / class_total;
+	      var corrected_attendance = (average_slice * max + class_total * 5 / 12 * lowest_slice) / class_total;
 	      //this.corrected = (this.corrected * 100).toFixed(2) + '%';
 
 	      var j = 1;
