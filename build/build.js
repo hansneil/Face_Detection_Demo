@@ -111,7 +111,11 @@ webpackJsonp([0,1],[
 	      var class_attendance = data.slice.split('\n').slice(0, -1).reduce(function (prev, val) {
 	        var listen = val.split(' ')[1];
 	        var total = val.split(' ')[1] - 0 + (val.split(' ')[2] - 0);
-	        return prev - 0 + listen / total;
+	        if (total == 0) {
+	          return prev;
+	        } else {
+	          return prev - 0 + listen / total;
+	        }
 	      }, 0);
 	      class_attendance = class_attendance / (data_total.length - 1);
 	      //this.experiment = (class_attendance * 100).toFixed(2) + '%';
