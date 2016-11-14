@@ -16,6 +16,19 @@
     </div>
     <div id="chart-wrapper" class="chart" :class="{expand: isShrink && !ready}">
     </div>
+    <div class="comment" :class="{expand: isShrink && !ready}">
+        <p class="conclusion">Conclusion</p>
+        <div class="con-wrapper">
+            <div class="con-left">
+                <span>experimental data</span>
+                <div class="res-val">{{experiment}}</div>
+            </div>
+            <div class="con-right">
+                <span>corrected data</span>
+                <div class="res-val">{{corrected}}</div>
+            </div>
+        </div>
+    </div>
     <span class="close-btn" @click="reset" :class="{close: isShrink, 'img-close': ready}">
         &times;
     </span>

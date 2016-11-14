@@ -16,7 +16,9 @@ var vm = new Vue({
     timing: 0,
     ready: 0,
     imgName: '',
-    videoName: ''
+    videoName: '',
+    experiment: '',
+    corrected: ''
   },
   methods: {
     updateTime: function(progress) {
@@ -67,6 +69,67 @@ var vm = new Vue({
         prev.push((val.split(' '))[2] - 0);
         return prev;
       }, []);
+
+      //计算听课率
+      var class_attendance = data.slice.split('\n').slice(0, -1).reduce((prev, val) => {
+        var listen = (val.split(' '))[1];
+        var total = (val.split(' '))[1] - 0 + ((val.split(' '))[2] - 0);
+        return prev - 0 + listen / total;
+      }, 0);
+      class_attendance = class_attendance / (data_total.length - 1);
+      //this.experiment = (class_attendance * 100).toFixed(2) + '%';
+      var i = 1;
+      var expInter = setInterval(() => {
+        this.experiment = (class_attendance * 100 - 5 + i * 0.5).toFixed(2) + '%';
+        i++;
+        if (i > 10) {
+          clearInterval(expInter);
+        }
+      }, 100);
+      //校准值
+      var max = data_total.reduce((prev, val) => {
+        if (val > prev) {
+          prev = val;
+        }
+        return prev;
+      }, 0);
+      var class_total = max * 6 / 5;
+      //校正听课率
+      var data_slice_sort = data.slice.split('\n').slice(0, -1).map((val) => {
+        var listen = (val.split(' '))[1];
+        var total = (val.split(' '))[1] - 0 + ((val.split(' '))[2] - 0);
+        if (max > total * 2) {
+          return -1;
+        } else {
+          return listen / total;
+        }
+      }).filter((val) => {
+        return val != -1;
+      });
+
+      var average_slice = (data_slice_sort.reduce((prev, val) => {
+        return prev - 0 + val;
+      })) / data_slice_sort.length;
+
+      //最低听课率
+      var lowest_slice = data_slice_sort.reduce((prev, val) => {
+        if (val < prev) {
+          prev = val;
+        }
+        return prev;
+      });
+
+      var corrected_attendance = (average_slice * max + class_total * 1 / 6 * lowest_slice) / class_total;
+      //this.corrected = (this.corrected * 100).toFixed(2) + '%';
+
+      var j = 1;
+      var corInter = setInterval(() => {
+        this.corrected = (corrected_attendance * 100 - 5 + j * 0.5).toFixed(2) + '%';
+        j++;
+        if (j > 10) {
+          clearInterval(corInter);
+        }
+      }, 100);
 
       var xData = function() {
         var data = [];
