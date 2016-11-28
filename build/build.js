@@ -160,6 +160,9 @@ webpackJsonp([0,1],[
 	        return prev;
 	      });
 
+	      console.log(lowest_slice, class_total, average_slice);
+	      console.log(data_slice_sort);
+
 	      var corrected_attendance = (average_slice * max + class_total * 5 / 12 * lowest_slice * average_slice) / class_total;
 	      //this.corrected = (this.corrected * 100).toFixed(2) + '%';
 
