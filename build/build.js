@@ -175,13 +175,13 @@ webpackJsonp([0,1],[
 	      var xData = function () {
 	        var data = [];
 	        for (var i = 1; i < data_total.length + 2; i++) {
-	          data.push(i + "Min");
+	          data.push(i);
 	        }
 	        return data;
 	      }();
 
 	      var option = {
-	        backgroundColor: "#344b58",
+	        backgroundColor: "#ffffff",
 	        "title": {
 	          "text": "Detect Result",
 	          "subtext": "powered by Echarts",
@@ -301,7 +301,7 @@ webpackJsonp([0,1],[
 	          "barGap": "10%",
 	          "itemStyle": {
 	            "normal": {
-	              "color": "rgba(255,144,128,1)",
+	              "color": "rgba(210,77,87,1)",
 	              "label": {
 	                "show": true,
 	                "textStyle": {
@@ -321,7 +321,7 @@ webpackJsonp([0,1],[
 	          "stack": "总量",
 	          "itemStyle": {
 	            "normal": {
-	              "color": "rgba(0,191,183,1)",
+	              "color": "rgba(38,166,191,1)",
 	              "barBorderRadius": 0,
 	              "label": {
 	                "show": true,
@@ -341,7 +341,7 @@ webpackJsonp([0,1],[
 	          symbol: 'circle',
 	          "itemStyle": {
 	            "normal": {
-	              "color": "rgba(252,230,48,1)",
+	              "color": "rgba(6, 177, 214, 1)",
 	              "barBorderRadius": 0,
 	              "label": {
 	                "show": true,
